@@ -86,7 +86,7 @@ void WarmupTest() {
     vec.PushBack(Vec2(1, 3));
 
     vec.Clear();
-    vec.EmplaceBack(Vec2(1, 2));
+    vec.EmplaceBack(1, 2);
 
 
     Cybug::Matrix<f32> mat(2, 2);
