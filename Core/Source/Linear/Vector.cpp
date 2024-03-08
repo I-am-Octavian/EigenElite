@@ -22,18 +22,18 @@ Vector<T>::Vector()
 template<class T>
 void Vector<T>::IncreaseBuffer(size_t theNewBuffer)
 {
-    m_BufferSize = theNewBuffer; // Increase the buffer
+    m_BufferSize = theNewBuffer;
 
     T* aNewData = (T*)::operator new(theNewBuffer * sizeof(T));
     // Not memcpy or std::copy(theVector.m_Data, theVector.m_Data + theVector.m_Size, aNewData); Shallow
 
     for (size_t i = 0; i < m_Size; ++i)
-    {//Deep
+    {
         aNewData[i] = std::move(m_Data[i]);
     }
 
     for (size_t i = 0; i < m_Size; ++i)
-    {//error can be introduced here
+    {
         m_Data[i].~T();
     }
 
@@ -73,7 +73,6 @@ Vector<T>::Vector(Vector&& theOther)
 template<class T>
 Vector<T>::~Vector()
 {
-    // delete[] m_Data; Error, [] calls destructor, Clear() calls destructor as well
     Clear();
     ::operator delete(m_Data, m_BufferSize * sizeof(T));
 }
@@ -120,6 +119,20 @@ void Vector<T>::PushBack(T&& theElement)
     }
 
     m_Data[m_Size++] = std::move(theElement);
+}
+
+template<class T>
+template<typename ...Args>
+inline T& Vector<T>::EmplaceBack(Args && ...args)
+{
+    if (m_Size >= m_BufferSize)
+    {
+        if (m_BufferSize == 0)
+            m_BufferSize = 2;
+        IncreaseBuffer(m_BufferSize + (m_BufferSize >> 1));
+    }
+    new(&m_Data[m_Size]) T(std::forward<Args>(args)...);
+    return m_Data[m_Size++];
 }
 
 template<class T>
@@ -174,7 +187,7 @@ Vector<T>& Vector<T>::operator=(const Vector<T>& theVector) {
         {
             aNewData[i] = theVector.m_Data[i];
         }
-for (size_t i = 0; i < theVector.m_Size; ++i)
+        for (size_t i = 0; i < theVector.m_Size; ++i)
         {
             m_Data[i].~T();
         }
@@ -193,6 +206,7 @@ Vector<T>& Vector<T>::operator=(Vector&& theVector)
 {
     if (this != &theVector)
     {
+        #error C2352 operatoer=: a call of a non-static member function requires an object 
         m_Data = theVector.m_Data;
         theVector.m_Data = nullptr;
         m_Size = theVector.m_Size;

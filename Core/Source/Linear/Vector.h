@@ -67,17 +67,7 @@ class Vector {
          * @return T
          */
         template<typename... Args>
-        T& EmplaceBack(Args&&... args)
-        {
-            if (m_Size >= m_BufferSize)
-            {
-                if (m_BufferSize == 0)
-                    m_BufferSize = 2;
-                IncreaseBuffer(m_BufferSize + (m_BufferSize >> 1));
-            }
-            new(&m_Data[m_Size]) T(std::forward<Args>(args)...);
-            return m_Data[m_Size++];
-        }
+        T& EmplaceBack(Args&&... args);
 
         /**
          * Clears all the elements

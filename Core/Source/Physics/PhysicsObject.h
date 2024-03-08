@@ -5,7 +5,6 @@
 
 class PhysicsObject
 {
-public:
 	PhysicsObject(Vec2 theVelocity, Vec2 thePosition,
             bool theGravityEnabled, bool theCollisionEnabled)
 		: m_Velocity(theVelocity), m_Position(thePosition), m_GravityEnabled(theGravityEnabled), m_CollisionEnabled(theCollisionEnabled) {}

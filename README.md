@@ -162,12 +162,9 @@ enum Shape {
 ### Potential Runtime
 1. Vec2 | 79 | Preventing self assignment
 ## compile
-Vector new delete 3
-Matrix Template function 2
-implementation template 3
-singleton 2-3
-collider static 1
-public turn to private 1
-return type different 1
-restitution declared in h and cpp 2
-utility
+Matrix Template function 2 DONE
+singleton 2-3 DONE
+collider static 1 DONE
+PhysicsObject Private 1 DONE
+EmplaceBack DONE
+#error in Vector operator= DONE
