@@ -64,4 +64,4 @@ class PhysicsEngine {
 };
 
 
-inline PhysicsEngine* PhysicsEngine::m_Instance = nullptr;
+PhysicsEngine* PhysicsEngine::m_Instance = nullptr;
