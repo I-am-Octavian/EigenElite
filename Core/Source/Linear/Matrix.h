@@ -45,13 +45,13 @@ namespace Cybug {
          * @param  size_t theRow 
          * @return Vector<T> 
          */
-        Vector<T> GetRow(size_t theRow); // error: Return Reference --> Dangling Refernce
+        Vector<T>& GetRow(size_t theRow); // error: Return Reference --> Dangling Refernce
         /**
          * 
          * @param  size_t theCol  
          * @return Vector<T>     
          */
-        Vector<T> GetColumn(size_t theCol);
+        Vector<T>& GetColumn(size_t theCol);
         /**
          * 
          * @return size_t 

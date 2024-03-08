@@ -106,7 +106,7 @@ void Vector<T>::PushBack(const T& theElement)
         IncreaseBuffer(m_BufferSize + (m_BufferSize >> 1));
     }
 
-    m_Data[m_Size++] = theElement;
+    m_Data[++m_Size] = theElement;
 }
 
 template<class T>
@@ -119,7 +119,7 @@ void Vector<T>::PushBack(T&& theElement)
         IncreaseBuffer(m_BufferSize + (m_BufferSize >> 1));
     }
 
-    m_Data[m_Size++] = std::move(theElement);
+    m_Data[++m_Size] = std::move(theElement);
 }
 
 template<class T>
@@ -138,7 +138,7 @@ void Vector<T>::Pop()
 template<class T>
 T& Vector<T>::Last()
 {
-    return this->m_Data[m_Size - 1];
+    return this->m_Data[m_Size];
 }
 
 template<class T>

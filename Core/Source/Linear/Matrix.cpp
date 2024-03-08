@@ -70,7 +70,7 @@ i64 Matrix<T>::Trace()
 }
 
 template<typename T>
-Vector<T> Matrix<T>::GetRow(size_t theRow)
+Vector<T>& Matrix<T>::GetRow(size_t theRow)
 {
 	if (theRow > m_X)
 	{
@@ -85,7 +85,7 @@ Vector<T> Matrix<T>::GetRow(size_t theRow)
 }
 
 template<typename T>
-Vector<T> Matrix<T>::GetColumn(size_t theCol)
+Vector<T>& Matrix<T>::GetColumn(size_t theCol)
 {
 	if (theCol> m_Y)
 	{

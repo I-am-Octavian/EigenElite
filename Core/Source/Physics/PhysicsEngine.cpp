@@ -38,6 +38,7 @@ void PhysicsEngine::UpdateObjects() {
         if (m_Objs[i]->IsGravityEnabled() &&
                 (pos.GetY() <= SCREEN_HEIGHT && pos.GetY() > 0)) {
             vel = m_Objs[i]->GetVelocity() + GetGravity();
+            pos = m_Objs[i]->GetPosition() + GetGravity();
         }
         else {
             vel = m_Objs[i]->GetVelocity();
@@ -52,14 +53,14 @@ void PhysicsEngine::UpdateObjects() {
         }
 
         pos = pos + (vel * ((float)FPS/CURR_FPS)) ;
-        m_Objs[i]->SetPosition(pos);
-        m_Objs[i]->SetVelocity(vel);
+        m_Objs[i]->SetPosition(vel);
+        m_Objs[i]->SetVelocity(pos);
     }
 }
 
 void PhysicsEngine::Simulate() {
     for (i32 i = 0; i < m_Objs.GetSize(); i++) {
-        for (i32 j = i+1; j < m_Objs.GetSize(); j++) {
+        for (i32 j = 0; j < m_Objs.GetSize(); j++) {
             // collision check
             // Collider::CheckCollision(m_Objects[i], m_Objects[i + 1]);
                 Collider* collider1 = static_cast<Collider*>(m_Objs[i]);
