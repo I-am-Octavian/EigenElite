@@ -1,5 +1,7 @@
 #include "raylib.h"
 
+#include "test.h"
+
 #include "Linear/Core.h"
 #include "Linear/Matrix.h"
 #include "Linear/Vector.h"
@@ -33,9 +35,10 @@ class App {
                 BeginDrawing();
                 DrawFPS(0, 0);
                 ClearBackground(BLACK);
-                for (i32 i = 0; i < m_Engine->GetSize(); i++) {
+                for (size_t i = 1; i < m_Engine->GetSize(); i++) {
                     DrawCircle((int)m_Engine->GetPhysicsObject(i)->GetPosition().GetX(),
-                            (int)m_Engine->GetPhysicsObject(i)->GetPosition().GetY(), 10.0f,
+                            (int)m_Engine->GetPhysicsObject(i)->GetPosition().GetY(),
+                            10.0f,
                             Color{(unsigned char)(10 * (i * 10)), 0, 255, 255});
                 }
                 EndDrawing();
@@ -50,6 +53,8 @@ i32 App::m_Fps = CURR_FPS;
 i32 main(void)
 {
     WarmupTest();
+    ScoreTest();
+
     Collider a(Vec2(4, 0), Vec2(100, 100), false, true, Shape::Type::Circle);
     Collider b(Vec2(-1, 1), Vec2(200, 100), false, true, Shape::Type::Circle);
     Collider c(Vec2(-1, 1), Vec2(300, 300), false, true, Shape::Type::Circle);
