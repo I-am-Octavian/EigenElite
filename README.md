@@ -143,3 +143,31 @@ enum Shape {
 - if wrong_statements {} no else statements
 - incorrect placement of \#error
 - for loop i = 0 to i <= n will cause segmentation fault
+
+# BUGS
+## runtime
+1. Collider.cpp | 12 | 2
+2. Collider.cpp | 33 | 3
+3. Collider.cpp | 52 | 1
+4. PhysicsEngine.cpp | 41 | 3 -- Subject to change
+5. PhysicsEngine.cpp | 55 | 1
+6. PhysicsEngine.cpp | 66 | 1
+7. PhysicsEngine.cpp | 62 | 3
+8. PhysicsEngine.cpp | 54 | 3
+9. Matrix.cpp | 88 | 1 -- becaues of warning
+10. Matrix.cpp | 69 | 1
+10. Vector.cpp | 141 | 1
+10. Vector.cpp | 58 | 1
+11. defines.h | 28 | 2
+### Potential Runtime
+1. Vec2 | 79 | Preventing self assignment
+## compile
+Vector new delete 3
+Matrix Template function 2
+implementation template 3
+singleton 2-3
+collider static 1
+public turn to private 1
+return type different 1
+restitution declared in h and cpp 2
+utility
