@@ -146,19 +146,19 @@ enum Shape {
 
 # BUGS
 ## runtime
-1. Collider.cpp | 12 | 2
-2. Collider.cpp | 33 | 3
-3. Collider.cpp | 52 | 1
-4. PhysicsEngine.cpp | 41 | 3 -- Subject to change
-5. PhysicsEngine.cpp | 55 | 1
-6. PhysicsEngine.cpp | 66 | 1
-7. PhysicsEngine.cpp | 62 | 3
-8. PhysicsEngine.cpp | 54 | 3
-9. Matrix.cpp | 88 | 1 -- becaues of warning
-10. Matrix.cpp | 69 | 1
-10. Vector.cpp | 141 | 1
-10. Vector.cpp | 58 | 1
-11. defines.h | 28 | 2
+1. [X] Collider.cpp | 12 | 2 -- jiggling effect of balls since self colliding
+2. [X] Collider.cpp | 33 | 3 -- pass through no collision
+3. [X] Collider.cpp | 52 | 1 -- pass through no collision
+4. [X] PhysicsEngine.cpp | 41 | 3 -- Subject to change - balls to go to bottom
+5. [X] PhysicsEngine.cpp | 55 | 1 -- no balls will appear
+6. [X] PhysicsEngine.cpp | 66 | 1 -- only one ball appears on screen
+7. [X] PhysicsEngine.cpp | 62 | 3 -- no balls will appear
+8. [X] PhysicsEngine.cpp | 54 | 3 -- no changes
+9. [X] Matrix.cpp | 88 | 1 -- becaues of warning -- no change
+10. [X] Matrix.cpp | 69 | 1 -- no change, should be in test file
+10. [X] Vector.cpp | 141 | 1 -- no change, should be in test file
+10. [X] Vector.cpp | 109 | 1 -- segmentation caused
+11. [X] defines.h | 28 | 2 -- no boundary condition
 ### Potential Runtime
 1. Vec2 | 79 | Preventing self assignment
 ## compile

@@ -13,76 +13,119 @@
 
 using std::cout, std::endl;
 
-template <class T>
-void TestDefines() {
-    T  x0 = 0;
-    i16 x1 = 0;
+bool TestSelfCollision() {
+    cout << "Self Collision\n";
+    Collider a(Vec2(-1, 1), Vec2(300, 500), false, true, Shape::Type::Circle);
+    Collider b(Vec2(-1, 1), Vec2(300, 600), false, true, Shape::Type::Circle);
 
-    cout << MAX(x0, x1) << endl;
-    cout << MIN(x0, x1) << endl;
-    cout << SQ(6) << endl;
-    f32 x = 0;
-    FAST_INV_SQRT(0.25, x);
-}
-
-
-template <class T>
-void TestMatrix() {
-    Cybug::Matrix<T> x0(3, 2);
-
-    for (T i = 0; i < x0.GetRowSize(); i++) {
-        for (T j = 0; j < x0.GetColumnSize(); j++) {
-            x0[i][j] = i;
-        }
+    if (!a.Intersects(b)) {
+        return true;
     }
-    x0.Print();
-    Cybug::Matrix<T> x1 = x0.Transpose();
-    x1.Print();
 
-    std::cout << x1.Trace() << std::endl;;
+    return false;
 }
 
-template <class T>
-void TestVector() {
-    Vector<T> x0(3);
+bool TestCollisionSetVelocity() {
+    cout << "Collision set Velocity\n";
+    Collider a(Vec2(-1, 1), Vec2(300, 500), false, true, Shape::Type::Circle);
+    Collider b(Vec2(-2, 1), Vec2(300, 600), false, true, Shape::Type::Circle);
 
-    x0.PushBack(1);
-    x0.PushBack(2);
-    x0.PushBack(3);
-    x0.Pop();
-    cout << x0.Last() << endl;
-    x0.Clear();
+    Collider::ResolveCollision(a, b);
+    if (a.GetVelocity() != Vec2(-1.0, 1.0)) {
+        return true;
+    }
+
+    return false;
 }
 
-template <class T>
-void TestVec2() {
-    Vec2 a(2, 3);
-    Vec2 b(3, 3);
+bool TestCollisionDist() {
+    cout << "Collision Dist \n";
+    Collider a(Vec2(-1, 1), Vec2(300, 500), false, true, Shape::Type::Circle);
+    Collider b(Vec2(-2, 1), Vec2(300, 500), false, true, Shape::Type::Circle);
 
-    Vec2 c = a - b;
-    cout << c.GetX() << " " << c.GetY() << endl;
+    if (a.Intersects(b)) {
+        return true;
+    }
+    return false;
 }
 
-
-void TestEngine() {
-    Collider a(Vec2(0, 2), Vec2(0, -2), true, true, Shape::Type::Circle);
-    Collider b(Vec2(0, -2), Vec2(0, 2), true, true, Shape::Type::Circle);
-
+bool TestGravity() {
+    Collider a(Vec2(-1, 1), Vec2(300, 500), true, true, Shape::Type::Circle);
     PhysicsEngine* engine = PhysicsEngine::GetInstance();
-    engine->PushPhyObject(&a);
-    engine->PushPhyObject(&b);
 
-    int i = 5;
-    while (i) {
-        engine->Simulate();
-        cout << engine->GetPhysicsObject(0)->GetPosition().GetX() << " " <<
-             engine->GetPhysicsObject(0)->GetPosition().GetY() << endl;
-        i--;
+
+    engine->PushPhyObject(&a);
+    engine->UpdateObjects();
+
+    if (a.GetVelocity() == Vec2(-1, 1) + engine->GetGravity()) {
+        return true;
     }
+    return false;
 }
 
-void TestFastInv() {
-    f32 x = 0;
-    float y = 0.25;
-    cout << x << endl;
+bool TestMatrixColumn() {
+    cout << "Test Matrix Column\n";
+    Cybug::Matrix<f32> mat1(2, 2);
+    mat1[0][0] = 1;
+    mat1[0][1] = 2;
+    mat1[1][0] = 3;
+    mat1[1][1] = 4;
+    Vector<f32> vec = mat1.GetColumn(0);
+
+    if (vec[0] == 1) {
+        return true;
+    }
+
+    return false;
+}
+
+bool TestMatrixTrace() {
+    cout << "Test Trace\n";
+    Cybug::Matrix<f32> mat1(2, 2);
+    mat1[0][0] = 1;
+    mat1[0][1] = 2;
+    mat1[1][0] = 3;
+    mat1[1][1] = 4;
+
+    i64 trace = mat1.Trace();
+
+    if (trace != 5) {
+        return true;
+    }
+
+    return false;
+}
+
+bool TestVectorLast() {
+    cout << "Vector Last\n";
+    Vector<f32> vec;
+    vec.PushBack(1);
+    vec.PushBack(2);
+    vec.PushBack(3);
+
+    if (vec.Last()) {
+        return true;
+    }
+    return false;
+}
+
+bool TestVectorPushBack() {
+    cout << "Vector PushBack\n";
+    Vector<f32> vec;
+    vec.PushBack(1);
+
+    if (vec.Last()) {
+        return true;
+    }
+    return false;
+}
+
+bool TestDefinesABS() {
+    cout << "ABS\n";
+    i32 x = -1;
+
+    if (ABS(x)) {
+        return true;
+    }
+    return false;
 }
