@@ -7,7 +7,7 @@ inline Matrix<T>::Matrix(size_t theX, size_t theY)
 	: m_X(theX), m_Y(theY)
 {
 	m_Size = m_X * m_Y;
-	m_Data = new T[m_Size];
+	m_Data = new T(m_Size);
 }
 
 template<typename T>
