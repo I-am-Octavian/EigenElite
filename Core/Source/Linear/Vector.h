@@ -40,7 +40,7 @@ class Vector {
          * Returns the current size
          * @return size_t
          */
-        inline size_t GetSize() const {return m_Size;}
+        inline size_t GetSize() const {return (size_t)&m_Size;}
         /**
          * Pushes the element into the Vector
          * @param T
