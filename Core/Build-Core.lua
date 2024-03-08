@@ -19,11 +19,6 @@ project "Core"
        systemversion "latest"
        defines { }
 
-   filter "system:linux"
-       systemversion "latest"
-       defines { }
-       buildoptions "-fsized-deallocation"
-
    filter "configurations:Debug"
        defines { "DEBUG" }
        runtime "Debug"

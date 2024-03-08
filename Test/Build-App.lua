@@ -12,12 +12,22 @@ project "App"
    objdir ("../Binaries/Intermediates/" .. OutputDir .. "/%{prj.name}")
 
    if os.host() == "windows" then
-      links
-      {
-         "Core",
-         "../Vendor/Lib/Raylib/" .. folder .. "/msvc/**.lib",
-         "winmm"
-      }
+      if action == "vs2022" then
+         links
+         {
+            "Core",
+            "../Vendor/Lib/Raylib/" .. folder .. "/msvc/**.lib",
+            "winmm"
+         }
+      else
+         links
+         {
+            "Core",
+            "../Vendor/Lib/Raylib/" .. folder .. "/mingw/:libraylib.a",
+            "winmm",
+            "gdi32"
+         }
+      end
    else
       links
       {
@@ -26,15 +36,27 @@ project "App"
       }
    end
 
-   if os.host() == "windows" then 
-      includedirs
-      {
-         "Source",
+   if os.host() == "windows" then
+      if action == "vs2022" then
+         includedirs
+         {
+            "Source",
    
-        -- Include Core
-        "../Core/Source",
-        "../Vendor/Include/Raylib/" .. folder .. "/msvc"
-      }
+            -- Include Core
+            "../Core/Source",
+            "../Vendor/Include/Raylib/" .. folder .. "/msvc"
+         }
+      else
+         includedirs
+         {
+            "Source",
+   
+            -- Include Core
+            "../Core/Source",
+            "../Vendor/Include/Raylib/" .. folder .. "/mingw"
+         }
+      end
+
    end
 
    if os.host() == "linux" then 

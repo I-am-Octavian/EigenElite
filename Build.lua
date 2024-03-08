@@ -6,7 +6,11 @@ workspace "EigenElite"
 
    -- Workspace-wide build options for MSVC
    filter "system:windows"
-      buildoptions { "/EHsc", "/Zc:preprocessor", "/Zc:__cplusplus" }
+      if action == "vs2022" then
+         buildoptions { "/EHsc", "/Zc:preprocessor", "/Zc:__cplusplus" }
+      else
+         buildoptions "-fsized-deallocation"
+      end
 
 OutputDir = "%{cfg.system}-%{cfg.architecture}/%{cfg.buildcfg}"
 
@@ -19,6 +23,7 @@ end
 
 if os.host() == "linux" then
    folder = "Linux"
+   buildoptions "-fsized-deallocation"
    print(folder)
 end
 
